@@ -1,0 +1,100 @@
+---
+import Layout from "../layouts/Layout.astro";
+const response = await fetch(
+	"https://randomuser.me/api/?results=30&exc=login,registered,dob,cell,picture,location,coordinates"
+);
+const data = await response.json();
+const user = data.results;
+
+interface User {
+	gender: string;
+	name: {
+		title: string;
+		first: string;
+		last: string;
+	};
+	email: string;
+	phone: string;
+	id: {
+		name: string;
+		value: string;
+	};
+	nat: string;
+}
+---
+
+<Layout title="Student's Prediction">
+	<div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-4 my-4">
+		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+			<caption
+				class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800"
+			>
+				Our products
+				<p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+					Browse a list of Flowbite products designed to help you work and play,
+					stay organized, get answers, keep in touch, grow your business, and
+					more.
+				</p>
+			</caption>
+			<thead
+				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+			>
+				<tr>
+					{
+						Object.keys(user[0]).map((key: any) => (
+							<th scope="col" class="px-6 py-3">
+								{key}
+							</th>
+						))
+					}
+					<th scope="col" class="px-6 py-3"> Edit</th>
+				</tr>
+			</thead>
+			<tbody>
+				{
+					user.map((user: User) => (
+						<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+						
+						</tr>
+					))
+				}
+				<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+					<th
+						scope="row"
+						class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						Microsoft Surface Pro
+					</th>
+					<td class="px-6 py-4"> White</td>
+					<td class="px-6 py-4"> Laptop PC</td>
+					<td class="px-6 py-4"> $1999</td>
+					<td class="px-6 py-4 text-right">
+						<a
+							href="#"
+							class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+							>Edit</a
+						>
+					</td>
+				</tr>
+				<tr class="bg-white dark:bg-gray-800">
+					<th
+						scope="row"
+						class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						Magic Mouse 2
+					</th>
+					<td class="px-6 py-4"> Black</td>
+					<td class="px-6 py-4"> Accessories</td>
+					<td class="px-6 py-4"> $99</td>
+					<td class="px-6 py-4 text-right">
+						<a
+							href="#"
+							class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+							>Edit</a
+						>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</Layout>
